@@ -50,7 +50,7 @@ afterEvaluate {
             create<MavenPublication>("release") {
                 from(components["release"])
                 groupId = project.group.toString()
-                artifactId = "galleryview"
+                artifactId = "GalleryView"
                 version = project.version.toString()
             }
         }
