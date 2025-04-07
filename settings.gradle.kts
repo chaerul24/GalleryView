@@ -10,11 +10,18 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+
+    plugins {
+        id("com.android.application") version "8.8.0"
+        kotlin("android")
+    }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        gradlePluginPortal()
         mavenCentral()
     }
 }
@@ -22,3 +29,4 @@ dependencyResolutionManagement {
 rootProject.name = "GalleryView"
 include(":app")
 include(":galleryview")
+

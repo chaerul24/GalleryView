@@ -1,5 +1,7 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
 
 android {
@@ -7,13 +9,9 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "id.chaerul.library.galleryview"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -25,9 +23,14 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    testOptions {
+        targetSdk = 35 // ✅ Buat test-instrumentation
     }
 }
 
@@ -38,4 +41,18 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+}
+
+// ✅ Bagian publish ke JitPack
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = project.group.toString()
+                artifactId = "galleryview"
+                version = project.version.toString()
+            }
+        }
+    }
 }
